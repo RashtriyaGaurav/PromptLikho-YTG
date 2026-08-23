@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptLikho Admin</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+
+</head>
+
+<body class="bg-zinc-100">
+
+    <div class="max-w-7xl mx-auto px-6 py-10">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-10">
+
+            <div>
+                <h1 class="text-3xl font-bold">
+                    PromptLikho Admin
+                </h1>
+
+                <p class="text-zinc-500 mt-2">
+                    Manage prompts, categories and your website.
+                </p>
+            </div>
+
+            <a href="/admin/upload" class="bg-black text-white px-5 py-3 rounded-xl hover:bg-zinc-800 transition">
+                + Upload Prompt
+            </a>
+
+        </div>
+
+        <!-- Statistics -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="bg-white rounded-2xl shadow-sm border border-zinc-200 p-6">
+
+                <p class="text-sm text-zinc-500">
+                    Total Prompts
+                </p>
+
+                <h2 class="text-4xl font-bold mt-3">
+                    <%= stats.totalImages %>
+                </h2>
+
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-zinc-200 p-6">
+
+                <p class="text-sm text-zinc-500">
+                    Categories
+                </p>
+
+                <h2 class="text-4xl font-bold mt-3">
+                    <%= stats.totalCategories %>
+                </h2>
+
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-zinc-200 p-6">
+
+                <p class="text-sm text-zinc-500">
+                    Total Views
+                </p>
+
+                <h2 class="text-4xl font-bold mt-3">
+                    <%= stats.totalViews.toLocaleString() %>
+                </h2>
+
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-zinc-200 p-6">
+
+                <p class="text-sm text-zinc-500">
+                    Prompt Copies
+                </p>
+
+                <h2 class="text-4xl font-bold mt-3">
+                    <%= stats.totalCopies.toLocaleString() %>
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="mt-10">
+
+            <h2 class="text-2xl font-bold mb-5">
+                Quick Actions
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Upload Prompt -->
+                <a href="/admin/upload"
+                    class="group bg-white rounded-2xl border border-zinc-200 p-6 hover:border-black hover:shadow-lg transition-all duration-300">
+
+                    <div class="text-4xl mb-4">📤</div>
+
+                    <h3 class="text-xl font-semibold">
+                        Upload Prompt
+                    </h3>
+
+                    <p class="text-zinc-500 mt-2">
+                        Upload a new AI prompt with image.
+                    </p>
+
+                </a>
+
+                <!-- Add Category -->
+                <a href="/admin/categories/new"
+                    class="group bg-white rounded-2xl border border-zinc-200 p-6 hover:border-black hover:shadow-lg transition-all duration-300">
+
+                    <div class="text-4xl mb-4">📂</div>
+
+                    <h3 class="text-xl font-semibold">
+                        Add Category
+                    </h3>
+
+                    <p class="text-zinc-500 mt-2">
+                        Create a new prompt category.
+                    </p>
+
+                </a>
+
+                <!-- View Website -->
+                <a href="/" target="_blank"
+                    class="group bg-white rounded-2xl border border-zinc-200 p-6 hover:border-black hover:shadow-lg transition-all duration-300">
+
+                    <div class="text-4xl mb-4">🌐</div>
+
+                    <h3 class="text-xl font-semibold">
+                        View Website
+                    </h3>
+
+                    <p class="text-zinc-500 mt-2">
+                        Open the live PromptLikho homepage.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Uploads -->
+
+        <div class="mt-10 bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden">
+
+            <div class="px-6 py-5 border-b border-zinc-200">
+
+                <h2 class="text-xl font-bold">
+                    Recent Prompts
+                </h2>
+
+            </div>
+
+            <% if(recentImages.length===0){ %>
+
+                <div class="p-10 text-center text-zinc-500">
+                    No prompts found.
+                </div>
+
+                <% } else { %>
+
+                    <div class="w-full overflow-x-auto">
+                        <!-- Desktop Table (hidden on mobile) -->
+                        <table class="w-full hidden sm:table">
+                            <thead class="bg-zinc-50">
+                                <tr>
+                                    <th class="text-left p-4">Image</th>
+                                    <th class="text-left p-4">Title</th>
+                                    <th class="text-left p-4">Category</th>
+                                    <th class="text-left p-4">Views</th>
+                                    <th class="text-left p-4">Copies</th>
+                                    <th class="text-center p-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% recentImages.forEach(image=> { %>
+                                    <tr class="border-t border-zinc-200 hover:bg-zinc-50">
+                                        <td class="p-4">
+                                            <img src="<%= image.image.url %>" class="w-16 h-16 rounded-lg object-cover"
+                                                alt="<%= image.title %>">
+                                        </td>
+                                        <td class="p-4 font-medium">
+                                            <%= image.title %>
+                                        </td>
+                                        <td class="p-4">
+                                            <%= image.category?.name || "-" %>
+                                        </td>
+                                        <td class="p-4">
+                                            <%= image.stats.views %>
+                                        </td>
+                                        <td class="p-4">
+                                            <%= image.stats.promptCopies %>
+                                        </td>
+                                        <td class="p-4 text-center">
+                                            <div class="flex justify-center gap-2">
+                                                <a href="/admin/prompts/<%= image._id %>/edit"
+                                                    class="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm whitespace-nowrap">
+                                                    Edit
+                                                </a>
+                                                <form action="/admin/prompts/<%= image._id %>/delete" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this prompt?');">
+                                                    <button type="submit"
+                                                        class="px-3 py-2 rounded-lg bg-red-600 text-white text-sm hover:bg-red-700 whitespace-nowrap">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+
+                        <!-- Mobile Cards (visible only on small screens) -->
+                        <div class="sm:hidden space-y-4">
+                            <% recentImages.forEach(image=> { %>
+                                <div class="bg-white rounded-lg border border-zinc-200 p-4 shadow-sm">
+                                    <!-- Image and Title Row -->
+                                    <div class="flex items-start gap-4">
+                                        <img src="<%= image.image.url %>"
+                                            class="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+                                            alt="<%= image.title %>">
+                                        <div class="flex-1 min-w-0">
+                                            <h3 class="font-medium text-zinc-900 break-words">
+                                                <%= image.title %>
+                                            </h3>
+                                            <p class="text-sm text-zinc-500 mt-1">
+                                                <%= image.category?.name || "-" %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Stats Row -->
+                                    <div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-zinc-100">
+                                        <div>
+                                            <p class="text-xs text-zinc-500">Views</p>
+                                            <p class="font-medium text-zinc-900">
+                                                <%= image.stats.views %>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-zinc-500">Copies</p>
+                                            <p class="font-medium text-zinc-900">
+                                                <%= image.stats.promptCopies %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Actions -->
+                                    <div class="flex gap-2 mt-4 pt-4 border-t border-zinc-100">
+                                        <a href="/admin/prompts/<%= image._id %>/edit"
+                                            class="flex-1 px-4 py-2.5 rounded-lg bg-blue-600 text-white text-sm text-center font-medium">
+                                            Edit
+                                        </a>
+                                        <form action="/admin/prompts/<%= image._id %>/delete" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this prompt?');"
+                                            class="flex-1">
+                                            <button type="submit"
+                                                class="w-full px-4 py-2.5 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+
+                    <% } %>
+
+        </div>
+
+        <div class="mt-10 bg-white rounded-2xl border border-zinc-200 overflow-hidden">
+
+            <div class="px-6 py-5 border-b border-zinc-200">
+
+                <h2 class="text-xl font-bold">
+                    Recent Categories
+                </h2>
+
+            </div>
+
+            <% if(recentCategories.length===0){ %>
+
+                <div class="p-8 text-center text-zinc-500">
+                    No categories found.
+                </div>
+
+                <% } else { %>
+
+                    <table class="w-full">
+
+                        <thead class="bg-zinc-50">
+
+                            <tr>
+
+                                <th class="text-left p-4">Name</th>
+                                <th class="text-left p-4">Slug</th>
+                                <th class="text-center p-4">Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <% recentCategories.forEach(category=> { %>
+
+                                <tr class="border-t border-zinc-200 hover:bg-zinc-50">
+
+                                    <td class="p-4 font-medium">
+                                        <%= category.name %>
+                                    </td>
+
+                                    <td class="p-4 text-zinc-500">
+                                        <%= category.slug %>
+                                    </td>
+
+                                    <td class="p-4">
+
+                                        <div class="flex justify-center gap-2">
+
+                                            <a href="/admin/categories/<%= category._id %>/edit"
+                                                class="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm">
+                                                Edit
+                                            </a>
+
+                                            <form action="/admin/categories/<%= category._id %>/delete" method="POST"
+                                                onsubmit="return confirm('Delete this category?');">
+
+                                                <button type="submit"
+                                                    class="px-3 py-2 rounded-lg bg-red-600 text-white text-sm hover:bg-red-700">
+                                                    Delete
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <% }) %>
+
+                        </tbody>
+
+                    </table>
+
+                    <% } %>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

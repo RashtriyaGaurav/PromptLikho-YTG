@@ -1,0 +1,39 @@
+ <% images.forEach((image, i)=> { %>
+
+                                                 <a href="/image/<%= image.slug %>"
+                                                        class="card group relative block border border-hairline bg-surface">
+
+                                                        <div class="relative overflow-hidden">
+                                                               <img src="<%= image.image.url %>"
+                                                                      class="card-img w-full h-55 sm:h-90 object-top object-cover"
+                                                                      alt="<%= image.seo.alt %>" loading="lazy">
+
+                                                        </div>
+
+                                                        <div class="p-2 sm:p-3">
+
+                                                               <h2
+                                                                      class="font-display hidden sm:block text-lg leading-snug line-clamp-2 text-ivory">
+                                                                      <%= image.title %>
+                                                               </h2>
+
+                                                              <div class="flex justify-between items-center">
+                                                                <p
+                                                                      class="font-mono text-[10px] tracking-[0.2em] uppercase text-accent">
+                                                                      <%= image.category.name %>
+                                                               </p>
+                                                               
+                                                               <span class="flex items-center gap-1.5 font-mono text-sm">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <%= image.stats.views %>
+                            </span>
+                                                              </div>
+
+                                                        </div>
+
+                                                 </a>
+
+                                                 <% }) %>

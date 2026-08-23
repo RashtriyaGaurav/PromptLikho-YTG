@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Prompt - PromptLikho</title>
+
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body class="bg-gray-100">
+
+    <div class="max-w-xl mx-auto mt-10 bg-white rounded-xl shadow-lg p-8">
+
+        <h1 class="text-3xl font-bold mb-6">
+            Upload Prompt
+        </h1>
+
+        <form
+            action="/admin/upload"
+            method="POST"
+            enctype="multipart/form-data"
+            class="space-y-5"
+        >
+
+            <div>
+                <label class="block mb-2 font-semibold">
+                    Image
+                </label>
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    required
+                    class="w-full border rounded-lg p-2"
+                >
+            </div>
+
+            <div>
+                <label class="block mb-2 font-semibold">
+                    Prompt
+                </label>
+
+                <textarea
+                    name="prompt"
+                    rows="6"
+                    required
+                    class="w-full border rounded-lg p-3"
+                    placeholder="Write your AI prompt..."
+                ></textarea>
+            </div>
+
+            <div>
+    <label class="block mb-2 font-semibold">
+        Category
+    </label>
+
+    <select
+        name="category"
+        required
+        class="w-full border rounded-lg p-3 bg-white"
+    >
+        <option value="">-- Select Category --</option>
+
+        <% categories.forEach(category => { %>
+            <option value="<%= category._id %>">
+                <%= category.name %>
+            </option>
+        <% }) %>
+    </select>
+</div>
+
+
+            <button
+                type="submit"
+                class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800"
+            >
+                Upload
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

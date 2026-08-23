@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Prompt</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-zinc-100">
+
+    <div class="max-w-5xl mx-auto py-10 px-6">
+
+        <h1 class="text-3xl font-bold mb-8">
+            Edit Prompt
+        </h1>
+
+        <form action="/admin/prompts/<%= image._id %>/edit" method="POST">
+
+            <!-- Preview -->
+            <div class="mb-8">
+
+                <img src="<%= image.image.url %>" alt="<%= image.title %>" class="w-56 rounded-xl border">
+
+            </div>
+
+            <!-- Title -->
+            <div class="mb-6">
+
+                <label class="block font-semibold mb-2">
+                    Title
+                </label>
+
+                <input type="text" name="title" value="<%= image.title %>" class="w-full border rounded-xl p-3">
+
+            </div>
+
+            <!-- Description -->
+            <div class="mb-6">
+
+                <label class="block font-semibold mb-2">
+                    Description
+                </label>
+
+                <textarea name="description" rows="5"
+                    class="w-full border rounded-xl p-3"><%= image.description %></textarea>
+
+            </div>
+
+            <!-- Prompt -->
+            <div class="mb-6">
+
+                <label class="block font-semibold mb-2">
+                    Prompt
+                </label>
+
+                <textarea name="prompt" rows="10" class="w-full border rounded-xl p-3"><%= image.prompt %></textarea>
+
+            </div>
+
+            <!-- Category -->
+            <div class="mb-8">
+
+                <label class="block font-semibold mb-2">
+                    Category
+                </label>
+
+                <select name="category" class="w-full border rounded-xl p-3">
+
+                    <% categories.forEach(category=> { %>
+
+                        <option value="<%= category._id %>" <%=String(category._id)===String(image.category._id)
+                            ? "selected" : "" %>
+                            >
+                            <%= category.name %>
+                        </option>
+
+                        <% }) %>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="bg-black text-white px-6 py-3 rounded-xl">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

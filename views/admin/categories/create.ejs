@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Category</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="max-w-xl mx-auto py-6">
+        <a href="/admin" class="bg-black text-white px-3 py-2 flex w-fit rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+            </svg>
+            Back To Admin</a>
+
+    </div>
+
+    <div class="max-w-xl mx-auto mt- bg-white shadow rounded-xl p-8">
+
+
+        <h1 class="text-3xl font-bold mb-6">
+            Create Category
+        </h1>
+
+        <form action="/admin/categories" method="POST">
+
+            <input type="text" name="name" placeholder="Category Name" required
+                class="w-full border rounded-lg p-3 mb-5">
+
+            <button class="bg-black text-white px-6 py-3 rounded-lg">
+                Create Category
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

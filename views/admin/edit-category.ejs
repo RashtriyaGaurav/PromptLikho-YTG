@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-zinc-100">
+
+<div class="max-w-xl mx-auto py-10">
+
+    <h1 class="text-3xl font-bold mb-8">
+        Edit Category
+    </h1>
+
+    <form
+        action="/admin/categories/<%= category._id %>/edit"
+        method="POST"
+    >
+
+        <input
+            type="text"
+            name="name"
+            value="<%= category.name %>"
+            class="w-full border rounded-xl p-3 mb-6"
+        >
+
+        <button
+            type="submit"
+            class="bg-black text-white px-6 py-3 rounded-xl"
+        >
+            Save Category
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
