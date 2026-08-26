@@ -17,11 +17,11 @@ app.set("views", path.join(__dirname, "../views"));
 const connectDB = require("../config/db");
 connectDB();
 
-const adminRoutes = require("../routes/admin.routes");
-app.use("/admin", adminRoutes);
+// const adminRoutes = require("../routes/admin.routes");
+// app.use("/admin", adminRoutes);
 
-const categoryRoutes = require("../routes/category.routes");
-app.use("/admin/categories", categoryRoutes);
+// const categoryRoutes = require("../routes/category.routes");
+// app.use("/admin/categories", categoryRoutes);
 
 const imageRoutes = require("../routes/image.routes");
 app.use("/image", imageRoutes);
