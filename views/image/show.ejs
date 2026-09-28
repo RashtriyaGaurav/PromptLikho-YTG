@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,17 +78,6 @@
         .bg-accent { background-color: var(--accent); }
         .border-accent { border-color: var(--accent); }
 
-        /* subtle film grain / vignette, purely decorative */
-        .grain {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 40;
-            background:
-                radial-gradient(ellipse at 50% 0%, rgba(198, 154, 92, 0.06), transparent 60%),
-                radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.5), transparent 55%);
-        }
-
         textarea::-webkit-scrollbar { width: 8px; }
         textarea::-webkit-scrollbar-track { background: transparent; }
         textarea::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 4px; }
@@ -116,8 +106,6 @@
 
 <body class="antialiased">
 
-    <div class="grain"></div>
-
     <div class="min-h-screen flex flex-col">
 
         <!-- Header -->
@@ -128,7 +116,7 @@
                             </a>
 
                            
-                     </header>
+                      </header>
 
         <!-- Main -->
         <main class="flex-1 grid lg:grid-cols-[1.05fr_1fr]">
@@ -270,3 +258,4 @@
 </body>
 
 </html>
+```
